@@ -1,7 +1,7 @@
 <section class="lattest-product-area pb-40 category-list">
     <div class="filter-bar d-flex flex-wrap align-items-center">
         <div class="sorting">
-            <select>
+            <select id="sort">
                 <option>Sắp xếp</option>
                 <option value="0">Giá tăng dần</option>
                 <option value="1">Giá giảm dần</option>
@@ -33,3 +33,4 @@
         @endforeach
     </div>
 </section>
+

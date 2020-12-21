@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Filters\ProductFilter;
 use App\Models\Category;
 use App\Models\Producer;
 use App\Models\Product;
+use App\Sorts\ProductSort;
 use App\Transformers\Web\CategoryTransformer;
 use App\Transformers\Web\ProducerTransformer;
 use App\Transformers\Web\ProductTransformer;
@@ -20,15 +22,21 @@ class CategoryController extends WebController
 {
     /**
      *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Sorts\ProductSort $productSort
+     * @param \App\Filters\ProductFilter $productFilter
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request, ProductSort $productSort, ProductFilter $productFilter)
     {
         $categories = fractal()->collection(Category::query()->orderBy('display_order', 'ASC')->get())
                                ->transformWith(new CategoryTransformer())
                                ->toArray();
         $category = $categories['data'][0]['id'];
-        $products = Category::query()->find($category)->products()->paginate(20);
+        $products = Product::query()->where('category_id', $category)
+                           ->sortBy($productSort)
+                           ->filter($productFilter)
+                           ->paginate(20);
         $paginate = $products->links();
         $products = fractal()->collection($products)
                              ->transformWith(new ProductTransformer())
@@ -45,14 +53,19 @@ class CategoryController extends WebController
 
     /**
      * @param \App\Models\Category $category
+     * @param \App\Sorts\ProductSort $productSort
+     * @param \App\Filters\ProductFilter $productFilter
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Category $category)
+    public function show(Category $category, ProductSort $productSort, ProductFilter $productFilter)
     {
         $categories = fractal()->collection(Category::query()->orderBy('display_order', 'ASC')->get())
                                ->transformWith(new CategoryTransformer())
                                ->toArray();
-        $products = $category->products()->paginate(20);
+        $products = Product::query()->where('category_id', $category->id)
+                           ->sortBy($productSort)
+                           ->filter($productFilter)
+                           ->paginate(20);
         $paginate = $products->links();
         $products = fractal()->collection($products)
                              ->transformWith(new ProductTransformer())

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
+use App\Builders\ProductBuilder;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -88,6 +88,9 @@ class Product extends UuidModel
         return $this->hasMany(Rate::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function route()
     {
         return $this->hasOne(Route::class);
@@ -146,5 +149,13 @@ class Product extends UuidModel
     public function getRate($id, $rate)
     {
         return Rate::where('product_id', $id)->where('rate', $rate)->count();
+    }
+
+    /**
+     * @return string
+     */
+    public function provideCustomBuilder()
+    {
+        return ProductBuilder::class;
     }
 }

@@ -15,3 +15,29 @@
         @slot('paginate',$paginate)
     @endcomponent
 @stop
+@section('js')
+    <script>
+      $(document).ready(function () {
+        var url = $(location).attr('href')
+        var asc = url.search('asc')
+        var desc = url.search('desc')
+        if (asc > 1) {
+          $('#sort').val('0')
+        }
+        if (desc > 1) {
+          $('#sort').val('1')
+        }
+      })
+
+      $('#sort').change(function () {
+        var sort = document.getElementById('sort').value
+        var url = $(location).attr('href')
+        if (sort) {
+          url = url + '?sortBy[price]=asc'
+        } else if (!sort) {
+          url = url + '?sortBy[price]=desc'
+        }
+        window.location.href = url
+      })
+    </script>
+@stop

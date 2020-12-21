@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\OverridesBuilder;
 use App\Traits\UploadImageTrait;
 use Illuminate\Database\Eloquent\Model;
 use Webpatser\Uuid\Uuid;
@@ -13,7 +14,7 @@ use Webpatser\Uuid\Uuid;
  */
 class UuidModel extends Model
 {
-    use UploadImageTrait;
+    use UploadImageTrait, OverridesBuilder;
 
     /**
      * @var bool
@@ -30,7 +31,6 @@ class UuidModel extends Model
         static::creating(function ($model) {
 
             $model->{$model->getKeyName()} = Uuid::generate(4);
-
         });
     }
 }
