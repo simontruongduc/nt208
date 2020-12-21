@@ -36,7 +36,7 @@ class ResetPasswordController extends CmsController
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = 'cms/dashboard';
 
     /**
      * Create a new controller instance.
