@@ -8,7 +8,7 @@ require 'recipe/laravel.php';
 set('application', 'khopkmobile');
 
 // Project repository
-set('repository', 'https://github.com/thanhtu150/nt208.git');
+set('repository', 'https://github.com/ductruong57/nt208');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', true);
