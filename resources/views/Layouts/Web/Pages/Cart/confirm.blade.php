@@ -1,5 +1,5 @@
 @extends('Layouts.Web.Pages.app')
-@section('title','Sản phẩm')
+@section('title','Xác nhận đơn hàng')
 @section('content')
     @component('Layouts.Web.Components.banner')
     @endcomponent
@@ -40,7 +40,7 @@
                                 <h5></h5>
                             </td>
                             <td>
-                                <p>{{number_format($total)}} Vnd</p>
+                                <p>{{number_format($total)}} ₫</p>
                             </td>
                         </tr>
                         <tr>
@@ -51,7 +51,7 @@
                                 <h5></h5>
                             </td>
                             <td>
-                                <p>0 Vnd</p>
+                                <p>0 ₫</p>
                             </td>
                         </tr>
                         <tr>
@@ -62,7 +62,7 @@
                                 <h5></h5>
                             </td>
                             <td>
-                                <p>{{number_format($total)}} Vnd</p>
+                                <p>{{number_format($total)}} ₫</p>
                             </td>
                         </tr>
                         </tbody>

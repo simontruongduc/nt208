@@ -89,8 +89,6 @@ Route::namespace('Web')->group(function () {
             Route::get('/callback/{provider}', 'LoginController@callback');
         });
     });
-    // match route
-    Route::get('{type}/{key}', 'RouteController@match');
     //home
     Route::get('', 'HomeController@index');
     Route::get('/index', 'HomeController@index')->name('web.index');
@@ -122,4 +120,6 @@ Route::namespace('Web')->group(function () {
         Route::get('ward/{id}', 'CheckOutController@getWard');
         Route::get('thanks', 'HomeController@thanks');
     });
+    // match route
+    Route::get('{type}/{key}', 'RouteController@match');
 });

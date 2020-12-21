@@ -9,6 +9,4 @@ final class RouteTypeEnum extends Enum
     const PRODUCT = 'product';
 
     const CATEGORY = 'category';
-
-    const CART = 'cart';
 }

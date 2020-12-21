@@ -1,5 +1,5 @@
 @extends('Layouts.Web.Pages.app')
-@section('title','Sản phẩm')
+@section('title','Thanh toán đơn hàng')
 @section('content')
     @component('Layouts.Web.Components.banner')
     @endcomponent
@@ -23,15 +23,15 @@
                                     <tr>
                                         <td>{{$cart['name']}}</td>
                                         <td> x {{$cart['qty']}}</td>
-                                        <td>{{number_format($cart['qty']*$cart['price'])}} Vnd</td>
+                                        <td>{{number_format($cart['qty']*$cart['price'])}} ₫</td>
                                     </tr>
                                 @endforeach
                                 </tbody>
                             </table>
                             <ul class="list list_2">
-                                <li><a>Tạm tính <span>{{number_format($total)}} Vnd</span></a></li>
-                                <li><a>Phí giao hàng <span>0 Vnd</span></a></li>
-                                <li><a href="#">Tổng cộng <span>{{number_format($total)}} Vnd</span></a></li>
+                                <li><a>Tạm tính <span>{{number_format($total)}} ₫</span></a></li>
+                                <li><a>Phí giao hàng <span>0 ₫</span></a></li>
+                                <li><a href="#">Tổng cộng <span>{{number_format($total)}} ₫</span></a></li>
                             </ul>
                         </div>
                     </div>
