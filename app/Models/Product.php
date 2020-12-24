@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -30,7 +29,7 @@ class Product extends UuidModel
      */
     protected $fillable = ['name', 'price', 'category_id', 'qty', 'intro', 'note'];
 
-    //relationship
+    #region [Relationship]
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -93,38 +92,27 @@ class Product extends UuidModel
         return $this->hasOne(Route::class);
     }
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function getProductPrice($id)
+    public function cart()
     {
-        return Product::where('id', $id)->first()->price;
+        return $this->hasOne(CartProduct::class);
     }
+    #endregion
 
     /**
-     * @param $id
+     * @param $product
      * @return mixed
      */
-    public function getProductName($id)
+    public function getSalePrice(Product $product)
     {
-        return Product::where('id', $id)->first()->name;
-    }
-
-    /**
-     * @param $id
-     * @return float|int
-     */
-    public function getSalePrice($id)
-    {
-        $product = Product::find($id);
         $today = Carbon::now();
-        $sale = $product->sales()->where('qty', '>', 0)
+        $sale = $product->sales()
                         ->where('sales.date_start', '<=', $today)
                         ->where('sales.date_finish', '>=', $today)->first();
-        if (isset($sale)) {
+        if ($sale) {
             return $product->price - $product->price * $sale->sale;
         }
+
+        return null;
     }
 
     /**
@@ -133,7 +121,7 @@ class Product extends UuidModel
      */
     public function getTotalRate($id)
     {
-        $rate = Rate::where('product_id', $id)->pluck('rate')->toArray();
+        $rate = Rate::query()->where('product_id', $id)->pluck('rate')->toArray();
 
         return round(array_sum($rate) / count($rate), 1, PHP_ROUND_HALF_DOWN);;
     }
@@ -145,6 +133,6 @@ class Product extends UuidModel
      */
     public function getRate($id, $rate)
     {
-        return Rate::where('product_id', $id)->where('rate', $rate)->count();
+        return Rate::query()->where('product_id', $id)->where('rate', $rate)->count();
     }
 }

@@ -25,7 +25,7 @@ class HomeController extends WebController
      */
     public function index()
     {
-        $products = Product::query()->orderBy(DB::raw('RAND()'))->take(20)->get();;
+        $products = Product::query()->orderBy(DB::raw('RAND()'))->take(20)->get();
         $products = fractal()->collection($products)
                              ->transformWith(new ProductTransformer())
                              ->toArray();

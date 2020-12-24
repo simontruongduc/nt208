@@ -66,8 +66,8 @@ class Bill extends UuidModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function coupon()
+    public function couponUser()
     {
-        return $this->belongsTo(Coupon::class);
+        return $this->belongsTo(CouponUser::class);
     }
 }

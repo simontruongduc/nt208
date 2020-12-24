@@ -36,13 +36,11 @@ class ProductTransformer extends TransformerAbstract
      */
     public function transform(Product $product)
     {
-        $sale = new Product();
-
         return [
             'id'         => $product->id,
             'name'       => $product->name,
             'price'      => $product->price,
-            'sale_price' => ! empty($product->sales) ? $sale->getSalePrice($product->id) : null,
+            'sale_price' => ! empty($product->sales) ? $product->getSalePrice($product) : null,
             'image'      => isset($product->images) ? $product->images()->where('status', 1)->first()->image : null,
             'route_name'  => $product->route->name,
         ];

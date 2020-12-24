@@ -20,7 +20,6 @@ class CreateConditionsTable extends Migration
             $table->float('discount');
             $table->integer('maximum')->nullable();
             $table->integer('minimum')->default(0);
-            $table->string('user_id')->nullable();
             $table->timestamps();
         });
     }

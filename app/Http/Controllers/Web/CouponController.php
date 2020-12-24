@@ -31,9 +31,4 @@ class CouponController extends WebController
 
         return $coupon ? $coupon : null;
     }
-
-    public function getDisCount($coupon)
-    {
-        $total = $this->cart->getTotal();
-    }
 }

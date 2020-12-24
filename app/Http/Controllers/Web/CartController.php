@@ -2,21 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Bill;
-use App\Models\Bill_detail;
 use App\Models\Cart;
 use App\Models\CartProduct;
-use App\Models\Coupon;
-use App\Models\District;
-use App\Models\Information;
 use App\Models\Product;
-use App\Models\Province;
-use App\Models\Ward;
-use App\Transformers\Api\InformationTransformer;
-use Carbon\Carbon;
 use Flugg\Responder\Http\MakesResponses;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use League\Fractal\Manager;
 
 /**
@@ -31,13 +22,11 @@ class CartController extends WebController
     /**
      * CartController constructor.
      *
-     * @param \App\Models\Product $product
      * @param \League\Fractal\Manager $fractal
      */
-    public function __construct(Product $product, Manager $fractal)
+    public function __construct(Manager $fractal)
     {
         parent::__construct($fractal);
-        $this->product = $product;
     }
 
     /**
@@ -48,21 +37,15 @@ class CartController extends WebController
         $cartDetail = [];
         $total = 0;
         if (Cart::query()->where('user_id', Auth::id())->count() != 0) {
-            $cart = Cart::query()->where('user_id', Auth::id())->first();
-            $cartProduct = CartProduct::query()->where('cart_id', $cart->id)->get();
-            foreach ($cartProduct as $row) {
-                $product = Product::query()->find($row->product_id);
-                $product = [
-                    'id'    => $row->product_id,
-                    'name'  => $this->product->getProductName($row->product_id),
-                    'price' => $this->product->getProductPrice($row->product_id),
-                    'image' => $product->images()->where('status', 1)->first()->image,
-                    'qty'   => $row->qty,
-                ];
-                array_push($cartDetail, $product);
-                $total += $row->qty * $this->product->getProductPrice($row->product_id);
-            }
+            $cartDetail = $this->getCartDetail();
+            $total = $this->getTotalPrice($cartDetail);
         }
+        Session::start();
+        Session::put('cart', ['product'     => $cartDetail,
+                              'total_price' => $total,
+                              'discount'    => null,
+                              'coupon_code' => null,
+        ]);
 
         return view('Layouts.Web.Pages.Cart.cart', compact('cartDetail', 'total'));
     }
@@ -102,24 +85,9 @@ class CartController extends WebController
             'qty'        => 1,
         ];
         CartProduct::query()->create($data);
+        Session::forget('cart');
 
         return $this->success();
-    }
-
-    /**
-     * @param $product
-     * @param $productOfCartQty
-     * @return bool
-     */
-    public function checkAddQty($product, $productOfCartQty)
-    {
-        $product = Product::query()->find($product);
-        $qty = $productOfCartQty += 1;
-        if ($product->qty < $qty) {
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -163,13 +131,15 @@ class CartController extends WebController
         }
     }
 
+    #region [Private method]
+
     /**
      * @param $product_id
      * @param $qty
      * @param $operator
      * @return bool
      */
-    public function checkQty($product_id, $qty, $operator)
+    private function checkQty($product_id, $qty, $operator)
     {
         $product = Product::query()->where('id', $product_id)->first();
         if ($operator == '+') {
@@ -185,4 +155,21 @@ class CartController extends WebController
 
         return false;
     }
+
+    /**
+     * @param $product
+     * @param $productOfCartQty
+     * @return bool
+     */
+    private function checkAddQty($product, $productOfCartQty)
+    {
+        $product = Product::query()->find($product);
+        $qty = $productOfCartQty += 1;
+        if ($product->qty < $qty) {
+            return false;
+        }
+
+        return true;
+    }
+    #endregion
 }

@@ -21,37 +21,37 @@
                             </thead>
                             <tbody>
                             @foreach($cartDetail as $product)
-                                <tr id="{{$product['id']}}">
+                                <tr id="{{$product->id}}">
                                     <td style="width: 55%">
                                         <div class="media">
                                             <div class="d-flex">
-                                                <img src="img/product/{{$product['image']}}" alt=""
+                                                <img src="img/product/{{$product->image}}" alt=""
                                                      style="width: 100px; height: 100px">
                                             </div>
                                             <div class="media-body" style="width: 300px">
-                                                <p>{{$product['name']}}</p>
+                                                <p>{{$product->name}}</p>
                                             </div>
                                         </div>
                                     </td>
                                     <td style="width: 15%">
-                                        <h5 id="product_{{$product['id']}}_price">{{number_format($product['price'])}}
+                                        <h5 id="product_{{$product->id}}_price">{{number_format($product->price)}}
                                             ₫</h5>
                                     </td>
                                     <td style="width: 15%">
                                         <div class="product_count">
-                                            <input type="text" name="qty" id="product_{{$product['id']}}_qty"
-                                                   maxlength="12" value="{{$product['qty']}}" title="Quantity:"
+                                            <input type="text" name="qty" id="product_{{$product->id}}_qty"
+                                                   maxlength="12" value="{{$product->qty}}" title="Quantity:"
                                                    class="input-text qty" disabled>
                                             <button class="increase items-count PlusQty" type="button"
-                                                    data-id="{{$product['id']}}"><i class="lnr lnr-chevron-up"></i>
+                                                    data-id="{{$product->id}}"><i class="lnr lnr-chevron-up"></i>
                                             </button>
                                             <button class="reduced items-count MinusQty" type="button"
-                                                    data-id="{{$product['id']}}"><i class="lnr lnr-chevron-down"></i>
+                                                    data-id="{{$product->id}}"><i class="lnr lnr-chevron-down"></i>
                                             </button>
                                         </div>
                                     </td>
                                     <td style="width: 15%">
-                                        <h5 id="product_{{$product['id']}}_total_price">{{number_format($product['qty'] * $product['price'])}}
+                                        <h5 id="product_{{$product->id}}_total_price">{{number_format($product->qty * $product->price)}}
                                             ₫</h5>
                                     </td>
                                 </tr>
