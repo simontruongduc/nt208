@@ -30,4 +30,9 @@ class HomeController extends CmsController
 
         return view('Layouts.Cms.Pages.Dashboard.index', compact('controlBox'));
     }
+
+     public function test()
+    {
+        return view('Layouts.Cms.Pages.category.ccrud');
+    }
 }
