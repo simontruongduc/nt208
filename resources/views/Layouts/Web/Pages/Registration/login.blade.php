@@ -2,7 +2,25 @@
 @section('title','Đăng nhập')
 @section('css')
 <style>
-    
+    .settingg, .settingf{
+        height: 35px;
+        line-height: 35px;
+        width: 196px;
+        margin-bottom: 10px;
+        margin-top: 0;
+        padding-left: 15px;
+        padding-right: 15px; 
+    }
+    .hover{
+        height: 300px;
+    }
+    .login_box_img{
+        height: 300px;
+        
+    }
+    .settingg{
+        margin-top: 3px
+    }
 </style>
 @stop
 @section('content')
@@ -55,14 +73,14 @@
                                 facebook hoặc google.</p>
                             <a class="primary-btn create" href="{{url('auth/signup')}}">Đăng ký tài khoản</a><br/>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <a href="{{ url('/auth/redirect/google') }}"
-                                       class="genric-btn danger-border google"><i class="fa fa-google"></i> Đăng nhập
+                                       class="genric-btn danger-border google settingg"><i class="fa fa-google"></i> Đăng nhập
                                         bằng Google</a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <a href="{{ url('/auth/redirect/facebook') }}"
-                                       class="genric-btn info-border face"><i class="fa fa-google"></i> Đăng nhập bằng
+                                       class="genric-btn info-border face settingf"><i class="fa fa-google"></i> Đăng nhập bằng
                                         facebook</a>
                                 </div>
                             </div>
