@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Cms')->group(function () {
     Route::prefix('cms')->group(function () {
+        Route::get('test', 'HomeController@test');
         Route::namespace('Auth')->group(function () {
             Route::prefix('auth')->group(function () {
                 // login
