@@ -6,6 +6,7 @@ use App\Enums\ActionTypeEnum;
 use App\Enums\CategoryEnum;
 use App\Enums\Route\RouteTypeEnum;
 use App\Models\Category;
+use App\Models\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -31,30 +32,29 @@ class CategoryController extends Controller
 
     public function store(Request $request)
     {
-        // TODO: code demo
-        $data = $request->validated();
-        $category = Category::query()->create($data);
+        $category = Category::query()->create($request->all());
 
         $route = [
             'type'        => RouteTypeEnum::CATEGORY,
-            'key'         => $category->name,
+            'name'        => $category->name,
             'category_id' => $category->id,
         ];
+        Route::query()->create($route);
 
+        return redirect('cms/category');
     }
 
     public function show(Category $category)
     {
         $type = ActionTypeEnum::VIEW;
+        $products = $category->products()->paginate(20);
+        $producers = $category->producers()->paginate(20);
 
-        return view('Layouts.Cms.Pages.Category.ccrud', compact('type'));
+        return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category', 'products', 'producers']));
     }
 
-    public function edit(Category $category, $type)
+    public function edit(Category $category)
     {
-        if ($type != ActionTypeEnum::VIEW) {
-            throw new NotFoundHttpException();
-        }
         $type = ActionTypeEnum::EDIT;
 
         return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category']));
@@ -62,9 +62,9 @@ class CategoryController extends Controller
 
     public function update(Request $request, Category $category)
     {
-        if ($request->type != ActionTypeEnum::CONFIRM) {
-            throw new NotFoundHttpException();
-        }
+        $category->update($request->all());
+
+        return redirect('cms/category/'.$category->id);
     }
 
     public function confirm(Request $request)
@@ -73,15 +73,15 @@ class CategoryController extends Controller
             throw new NotFoundHttpException();
         }
         $type = ActionTypeEnum::CONFIRM;
-        $category = $request->all();
+        $category = (object) $request->all();
 
         return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category']));
     }
-
-    public function destroy(Category $category, $type)
-    {
-        if ($type != ActionTypeEnum::VIEW) {
-            throw new NotFoundHttpException();
-        }
-    }
+    //
+    //public function destroy(Category $category)
+    //{
+    //    if ($type != ActionTypeEnum::VIEW) {
+    //        throw new NotFoundHttpException();
+    //    }
+    //}
 }

@@ -8,7 +8,6 @@
         @slot('activePage','Categories')
     @endcomponent
 @stop
-
 @section('content')
     <!-- Main content -->
     <section class="content">
@@ -16,13 +15,14 @@
             <div class="col-xs-12">
                 <div class="box">
                     <div class="box-header with-border">
-                        <div>
+                        <div class="col-xs-12">
                             <div class="box-body">
                                 <form role="form">
                                     <!-- input states -->
                                     <div class="form-group has-success col-md-6">
                                         <label class="control-label" for="inputSuccess">Email</label>
-                                        <input type="text" class="form-control" id="inputSuccess" placeholder="Tìm kiếm bằng email...">
+                                        <input type="text" class="form-control" id="inputSuccess"
+                                               placeholder="Tìm kiếm bằng email...">
                                     </div>
                                     <div class="form-group">
                                         <button type="button" class="btn btn-block btn-success btn-lg" style="margin-left: 15px;
@@ -30,6 +30,9 @@
                                         </button>
                                     </div>
                                 </form>
+                            </div>
+                            <div class="col-xs-2">
+                                <a type="button" class="btn btn-block btn-primary" href="{{url('cms/category/create')}}">Create new category</a>
                             </div>
                             <!-- /.box-body -->
                         </div>
@@ -47,15 +50,16 @@
                             </thead>
                             <tbody>
                             @foreach($categories as $category)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$category->name}}</td>
-                                <td>{{$category->products()->count()}}</td>
-                                <td>{{$category->producers()->count()}}</td>
-                                <td>
-                                    <a href="{{url('cms/category/'.$category->id)}}" type="button" class="btn btn-block btn-primary">Detail</a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>{{$category->name}}</td>
+                                    <td>{{$category->products()->count()}}</td>
+                                    <td>{{$category->producers()->count()}}</td>
+                                    <td>
+                                        <a href="{{url('cms/category/'.$category->id)}}" type="button"
+                                           class="btn btn-block btn-primary">Detail</a>
+                                    </td>
+                                </tr>
                             </tbody>
                             @endforeach
                         </table>

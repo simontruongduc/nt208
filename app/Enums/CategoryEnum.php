@@ -49,7 +49,7 @@ final class CategoryEnum extends Enum
                 return 'Phụ kiện khác';
                 break;
             default:
-                return self::getKey($value);
+                return $value;
         }
     }
 }
