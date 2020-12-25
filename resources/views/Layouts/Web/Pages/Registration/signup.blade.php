@@ -52,14 +52,18 @@
                     <div class="login_box_img">
                         <div class="hover">
                             <h4 class="new">Bạn đã có tài khoản ?</h4>
-                            <p>Kết nối với chúng tôi...</p>
+                            <p>Đăng nhập và để nhận ưu đãi mua sắm phụ kiện cho dế yêu...</p>
                             <a class="primary-btn create" href="{{url('auth/login')}}">Đăng nhập</a><br/>
                             <div class="row">
-                                <div class="col-md-6">
-                                    <a href="{{ url('/auth/redirect/google') }}" class="genric-btn danger-border google"><i class="fa fa-google"></i> Đăng nhập bằng Google</a>
+                                <div class="col-md-12">
+                                    <a href="{{ url('/auth/redirect/google') }}"
+                                       class="genric-btn danger-border google settingg"><i class="fa fa-google"></i> Đăng nhập
+                                        bằng Google</a>
                                 </div>
-                                <div class="col-md-6">
-                                    <a href="{{ url('/auth/redirect/facebook') }}" class="genric-btn info-border face"><i class="fa fa-google"></i> Đăng nhập bằng facebook</a>
+                                <div class="col-md-12">
+                                    <a href="{{ url('/auth/redirect/facebook') }}"
+                                       class="genric-btn info-border face settingf"><i class="fa fa-google"></i> Đăng nhập bằng
+                                        facebook</a>
                                 </div>
                             </div>
                         </div>

@@ -1,28 +1,5 @@
 @extends('Layouts.Web.Pages.app')
 @section('title','Đăng nhập')
-@section('css')
-<style>
-    .settingg, .settingf{
-        height: 35px;
-        line-height: 35px;
-        width: 196px;
-        margin-bottom: 10px;
-        margin-top: 0;
-        padding-left: 15px;
-        padding-right: 15px; 
-    }
-    .hover{
-        height: 300px;
-    }
-    .login_box_img{
-        height: 300px;
-        
-    }
-    .settingg{
-        margin-top: 3px
-    }
-</style>
-@stop
 @section('content')
     @component('Layouts.Web.Components.banner')
         @slot('pageName','Đăng nhập')

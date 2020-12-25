@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Web\WebController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Laravel\Socialite\Facades\Socialite;
 
 /**
@@ -33,7 +32,7 @@ class LoginController extends WebController
     public function login(LoginRequest $request)
     {
         if (User::query()->where('email', $request->email)->where('email_verified_at', '!=', null)->count() == 0) {
-            return redirect()->back()->with('message', 'Tài khoảng chưa xác thực');
+            return redirect()->back()->with('message', 'Tài khoản chưa xác thực');
         }
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             if ($request->backUrl != null) {
