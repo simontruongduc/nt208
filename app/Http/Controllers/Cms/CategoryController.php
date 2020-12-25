@@ -11,8 +11,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class CategoryController
+ *
+ * @package App\Http\Controllers\Cms
+ */
 class CategoryController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $categories = Category::query()->paginate(20);
@@ -23,6 +31,9 @@ class CategoryController extends Controller
         return view('Layouts.Cms.Pages.Category.index', compact('categories'));
     }
 
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         $type = ActionTypeEnum::CREATE;
@@ -30,6 +41,10 @@ class CategoryController extends Controller
         return view('Layouts.Cms.Pages.Category.ccrud', compact('type'));
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function store(Request $request)
     {
         $category = Category::query()->create($request->all());
@@ -44,6 +59,10 @@ class CategoryController extends Controller
         return redirect('cms/category');
     }
 
+    /**
+     * @param \App\Models\Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Category $category)
     {
         $type = ActionTypeEnum::VIEW;
@@ -53,6 +72,10 @@ class CategoryController extends Controller
         return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category', 'products', 'producers']));
     }
 
+    /**
+     * @param \App\Models\Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit(Category $category)
     {
         $type = ActionTypeEnum::EDIT;
@@ -60,6 +83,11 @@ class CategoryController extends Controller
         return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category']));
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
@@ -67,6 +95,10 @@ class CategoryController extends Controller
         return redirect('cms/category/'.$category->id);
     }
 
+    /**
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function confirm(Request $request)
     {
         if (! in_array($request->type, [ActionTypeEnum::CREATE, ActionTypeEnum::EDIT])) {
@@ -77,11 +109,16 @@ class CategoryController extends Controller
 
         return view('Layouts.Cms.Pages.Category.ccrud', compact(['type', 'category']));
     }
-    //
-    //public function destroy(Category $category)
-    //{
-    //    if ($type != ActionTypeEnum::VIEW) {
-    //        throw new NotFoundHttpException();
-    //    }
-    //}
+
+    /**
+     * @param \App\Models\Category $category
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
+     */
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect('cms/category');
+    }
 }
