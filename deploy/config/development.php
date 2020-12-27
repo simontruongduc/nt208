@@ -9,5 +9,5 @@ host('3.135.64.186')
 ->identityFile('deploy/keys/key.pem')
 ->forwardAgent(true)
 ->multiplexing(true)
-->set('branch', 'feature/#cms')
+->set('branch', 'feature/cms')
 ->set('deploy_path', '/var/www/html/khopkmobile');

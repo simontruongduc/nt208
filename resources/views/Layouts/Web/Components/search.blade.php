@@ -25,16 +25,6 @@
                                     <h6>{{number_format($product->price)}} Vnd</h6>
                                 @endif
                             </div>
-                            <div class="prd-bottom" style="text-align: initial">
-                                <a class="social-info add_cart" data-id="{{$product->id}}">
-                                    <span class="ti-bag"></span>
-                                    <p class="hover-text">Thêm vào giỏ</p>
-                                </a>
-                                <a href="{{url('product/'.$product->id)}}" class="social-info">
-                                    <span class="lnr lnr-eye"></span>
-                                    <p class="hover-text">Xem chi tiết</p>
-                                </a>
-                            </div>
                         </div>
                     </div>
                 </div>

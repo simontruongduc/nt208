@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-/**
- * Class Condition
- *
- * @package App\Models
- */
-class Condition extends UuidModel
+class CouponUser extends UuidModel
 {
     use SoftDeletes;
 
@@ -22,12 +17,12 @@ class Condition extends UuidModel
     /**
      * @var string
      */
-    protected $table = 'conditions';
+    protected $table = 'coupon_user';
 
     /**
      * @var string[]
      */
-    protected $fillable = ['discount', 'maximum', 'minimum', 'rule', 'message'];
+    protected $fillable = ['coupon_id', 'user_id', 'is_used'];
 
     //relationship
 
@@ -37,5 +32,13 @@ class Condition extends UuidModel
     public function coupon()
     {
         return $this->hasMany(Coupon::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function user()
+    {
+        return $this->hasMany(User::class);
     }
 }

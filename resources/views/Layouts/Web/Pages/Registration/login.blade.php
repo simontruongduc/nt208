@@ -50,14 +50,14 @@
                                 facebook hoặc google.</p>
                             <a class="primary-btn create" href="{{url('auth/signup')}}">Đăng ký tài khoản</a><br/>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <a href="{{ url('/auth/redirect/google') }}"
-                                       class="genric-btn danger-border google"><i class="fa fa-google"></i> Đăng nhập
+                                       class="genric-btn danger-border google settingg"><i class="fa fa-google"></i> Đăng nhập
                                         bằng Google</a>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <a href="{{ url('/auth/redirect/facebook') }}"
-                                       class="genric-btn info-border face"><i class="fa fa-google"></i> Đăng nhập bằng
+                                       class="genric-btn info-border face settingf"><i class="fa fa-google"></i> Đăng nhập bằng
                                         facebook</a>
                                 </div>
                             </div>

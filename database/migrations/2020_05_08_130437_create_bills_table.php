@@ -22,7 +22,7 @@ class CreateBillsTable extends Migration
             $table->string('payment');
             $table->string('total');
             $table->uuid('coupon_id')->nullable();
-            $table->foreign('coupon_id')->references('id')->on('coupons')->onDelete('cascade');
+            $table->foreign('coupon_id')->references('id')->on('coupon_user')->onDelete('cascade');
             $table->timestamp('date_order')->nullable();
             $table->timestamp('date_finish')->nullable();
             $table->string('status')->default(\App\Enums\OrderStatusEnum::CONFIRM);

@@ -52,7 +52,19 @@ Start the local development server
 php artisan server
 ```
 ##Database seeding
+create database : create empty database and using sql code in file khopkmobile.sql
 
+open file .env and edit database connect setting
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1 // db host
+DB_PORT=3306 // db port
+DB_DATABASE=khopkmobile // database name
+DB_USERNAME=root // username
+DB_PASSWORD= // password
+```
+##For developers only if not use sql code in file khopkmobile.sql for import data
+###If you used sql code in file khopkmobile.sql to import data , please skip this step
 create client for passport
 ```
 php artisan passport:install

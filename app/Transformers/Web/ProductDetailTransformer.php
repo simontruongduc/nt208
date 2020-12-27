@@ -35,13 +35,11 @@ class ProductDetailTransformer extends TransformerAbstract
      */
     public function transform(Product $product)
     {
-        $productModel = new Product();
-
         return [
             'id'                => $product->id,
             'name'              => $product->name,
             'price'             => $product->price,
-            'sale_price'        => ! empty($product->sales) ? $productModel->getSalePrice($product->id) : null,
+            'sale_price'        => ! empty($product->sales) ? $product->getSalePrice($product) : null,
             'qty'               => $product->qty,
             'status'            => ProductStatusEnum::getDispValue($product->status),
             'producer'          => $product->producer->name,
@@ -49,14 +47,14 @@ class ProductDetailTransformer extends TransformerAbstract
             'introduce'         => $product->introduce->introduce,
             'image'             => $product->images()->where('status', 1)->first()->image,
             'medium_score_rate' => Rate::query()->where('product_id',
-                $product->id)->count() != 0 ? $productModel->getTotalRate($product->id) : null,
+                $product->id)->count() != 0 ? $product->getTotalRate($product->id) : null,
             'reviews'           => Rate::query()->where('product_id', $product->id)->count(),
             'rate_detail'       => [
-                '1' => $productModel->getRate($product->id, 1),
-                '2' => $productModel->getRate($product->id, 2),
-                '3' => $productModel->getRate($product->id, 3),
-                '4' => $productModel->getRate($product->id, 4),
-                '5' => $productModel->getRate($product->id, 5),
+                '1' => $product->getRate($product->id, 1),
+                '2' => $product->getRate($product->id, 2),
+                '3' => $product->getRate($product->id, 3),
+                '4' => $product->getRate($product->id, 4),
+                '5' => $product->getRate($product->id, 5),
             ],
         ];
     }

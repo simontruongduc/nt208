@@ -30,10 +30,8 @@ Route::namespace('Cms')->group(function () {
                 //Route::get('confirm','CategoryController@confirm');
             });
             //category
-            Route::prefix('category')->group(function () {
-                Route::resource('', 'CategoryController');
-                //Route::get('confirm','CategoryController@confirm');
-            });
+            Route::resource('category', 'CategoryController');
+            Route::post('category/confirm', 'CategoryController@confirm');
             //producer
             Route::prefix('producer')->group(function () {
                 Route::resource('', 'ProducerController');

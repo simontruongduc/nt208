@@ -40,7 +40,7 @@ class SaleTransformer extends TransformerAbstract
             'id'         => $sale->product->id,
             'name'       => $sale->product->name,
             'price'      => $sale->product->price,
-            'sale_price' => $product->getSalePrice($sale->product->id),
+            'sale_price' => $product->getSalePrice($sale->product),
             'image'      => $sale->product->images()->where('status', 1)->first()->image,
             'route_name' => $sale->product->route->name,
         ];

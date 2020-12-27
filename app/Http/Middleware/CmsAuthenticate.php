@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class CmsAuthenticate
 {
@@ -21,6 +20,6 @@ class CmsAuthenticate
             return $next($request);
         }
 
-        return redirect('admin/auth/login');
+        return redirect('cms/auth/login');
     }
 }
