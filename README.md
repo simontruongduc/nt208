@@ -49,7 +49,7 @@ Run the database migrations (**Set the database connection in .env before migrat
 
 Start the local development server
 ```
-php artisan server
+php artisan serve
 ```
 ##Database seeding
 
